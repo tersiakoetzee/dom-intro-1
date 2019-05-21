@@ -13,7 +13,8 @@
 //link the function to a click event on the calculate button
 var billStringElement = document.querySelector(".billString");
 var calculateBtn = document.querySelector(".calculateBtn");
-var billTotalElement = document.querySelector(".billTotal")
+var billTotalElement = document.querySelector(".billTotal");
+var totalCostElem = document.querySelector(".totalCost");
 
 
 function calculateBtnClicked() {
@@ -39,6 +40,18 @@ function calculateBtnClicked() {
 
     var roundedBillTotal = billTotal.toFixed(2);
     billTotalElement.innerHTML = roundedBillTotal;
+    var totalCost = callsTotal + smsTotal;
+    totalCostElem.innerHTML = totalCost.toFixed(2);
+
+
+    if (totalCost >= 20) {
+        totalCostElem.classList.add("warning");
+        totalCostElem.classList.remove("danger"); 
+    }
+    if (totalCost >= 30) {
+        totalCostElem.classList.remove("danger");
+        totalCostElem.classList.add("warning");
+    }
 }
 
 calculateBtn.addEventListener('click', calculateBtnClicked);

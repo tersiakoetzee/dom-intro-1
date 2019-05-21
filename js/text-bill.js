@@ -17,7 +17,7 @@ var billTypeEntered = document.querySelector(".billTypeText");
 var addToBillBtn = document.querySelector(".addToBillBtn");
 var callsTotalElem = document.querySelector(".callTotalOne");
 var smsTotalElem = document.querySelector(".smsTotalOne");
-var totalCostElem = document.querySelector(".totalCost")
+var totalCostElem = document.querySelector(".totalCost");
 
 var callsTotal = 0;
 var smsTotal = 0;
