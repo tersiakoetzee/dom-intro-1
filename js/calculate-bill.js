@@ -44,14 +44,20 @@ function calculateBtnClicked() {
     totalCostElem.innerHTML = totalCost.toFixed(2);
 
 
-    if (totalCost >= 20) {
-        totalCostElem.classList.add("warning");
-        totalCostElem.classList.remove("danger"); 
+    if (roundedBillTotal >= 20) {
+        billTotalElement.classList.add("warning");
+        billTotalElement.classList.remove("danger"); 
     }
-    if (totalCost >= 30) {
-        totalCostElem.classList.remove("danger");
-        totalCostElem.classList.add("warning");
+    if (roundedBillTotal >= 30) {
+        billTotalElement.classList.add("danger");
+        billTotalElement.classList.remove("warning");
     }
+    if (roundedBillTotal < 20) {
+        billTotalElement.classList.remove("danger");
+        billTotalElement.classList.remove("warning");
+    }
+
+
 }
 
 calculateBtn.addEventListener('click', calculateBtnClicked);
