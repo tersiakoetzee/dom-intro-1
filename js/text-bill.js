@@ -19,23 +19,23 @@ var callsTotalElem = document.querySelector(".callTotalOne");
 var smsTotalElem = document.querySelector(".smsTotalOne");
 var totalCostElem = document.querySelector(".totalCost");
 
-var callsTotal = 0;
-var smsTotal = 0;
+var callsTotal1 = 0;
+var smsTotal1 = 0;
 
 function textBillTotal() {
 
     var billTypeEnteredValue = billTypeEntered.value.trim();
 
     if (billTypeEnteredValue === "call") {
-        callsTotal += 2.75
+        callsTotal1 += 2.75
     }
     else if (billTypeEnteredValue === "sms") {
-        smsTotal += 0.75;
+        smsTotal1 += 0.75;
     }
 
-    callsTotalElem.innerHTML = callsTotal.toFixed(2);
-    smsTotalElem.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
+    callsTotalElem.innerHTML = callsTotal1.toFixed(2);
+    smsTotalElem.innerHTML = smsTotal1.toFixed(2);
+    var totalCost = callsTotal1 + smsTotal1;
     totalCostElem.innerHTML = totalCost.toFixed(2);
 
 
