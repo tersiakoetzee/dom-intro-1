@@ -1,5 +1,5 @@
 // get a reference to the sms or call radio buttons
-
+var myRadio = document.querySelectorAll('.billItemTypeWithSettings');
 // get refences to all the settings fields
 
 //get a reference to the add button
@@ -21,43 +21,77 @@
 // * display the latest total on the screen.
 // * check the value thresholds and display the total value in the right color.
 
-// var billItemTypeWithSettings = document.querySelector(".billItemTypeWithSettings");
+var billItemTypeWithSettings = document.querySelector(".billItemTypeWithSettings");
 var callTotalSettings = document.querySelector(".callTotalSettings");
 var smsTotalSettings = document.querySelector(".smsTotalSettings");
-var totalSettings = document.querySelector(".totalCost");
-var updateSettings = document.querySelector(".updateSettings");
-// var billItemType = document.querySelector(".billItemType");
-// var warningLevelSetting = document.querySelector(".warningLevelSetting");
-// var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
-var settingsAddBtn = document.querySelector(".settingsAddBtn");
+var totalSettings = document.querySelector(".totalSettings");
+
+var callCostSetting = document.querySelector(".callCostSetting");
+var smsCostSetting = document.querySelector(".smsCostSetting");
+var warningLevelSetting1 = document.querySelector(".warningLevelSetting");
+var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
+
+var updateSettingsBtn = document.querySelector(".updateSettingsBtn");
+var settingsBillAddBtnElem = document.querySelector(".settingsBillAddBtn");
 
 var callsTotals = 0;
 var smsTotals = 0;
 
-function settingsBillTotal() {
+var callCostTest = 0;
+var smsCostTest = 0;
+var criticaLevelSetting = 0;
+var warningLevelSetting = 0;
 
+function updateBillSettings() {
+     warningLevelSetting =  Number(warningLevelSetting1.value);
+     criticalLevelSetting = Number(criticalLevelSetting.value);
+    
+     console.log(warningLevelSetting)
+    callCostTest = callCostSetting.value;
+    smsCostTest = smsCostSetting.value;
 
-
-    if (billItemType === "call") {
-        callsTotals += 2.75
-    }
-    else if (billItemType === "sms") {
-        smsTotals += 0.75;
-    }
-
-    callTotalSettings.innerHTML = callsTotals.toFixed(2);
-    smsTotalSettings.innerHTML = smsTotals.toFixed(2);
-    var totalCost = callsTotals + smsTotals;
-    totalSettings.innerHTML = totalCost.toFixed(2);
-
-
-    // if (totalCost >= 65) {
-    //     totalSettings.classList.add("danger");
-    // }
-    // if (totalCost >= 30) {
-    //     totalSettings.classList.add("warning");
-    // }
 
 }
 
-updateSettings.addEventListener('click', settingsBillTotal);
+function settingBillTotal() {
+
+    callCostTest = callCostSetting.value;
+    smsCostTest = smsCostSetting.value;
+
+    for (var i = 0; i < myRadio.length; i++) {
+        var elem = myRadio[i];
+        if (elem.checked == true) {
+            if (elem.value === "call") {
+                callsTotals += Number(callCostTest)
+            } else if (elem.value === "sms") {
+                smsTotals += Number(smsCostTest)
+
+
+            }
+
+        }
+
+        callTotalSettings.innerHTML = callsTotals.toFixed(2);
+        smsTotalSettings.innerHTML = smsTotals.toFixed(2);
+        var totalCost = callsTotals + smsTotals;
+        totalSettings.innerHTML = totalCost.toFixed(2);
+    }
+
+    if (totalCost >= criticalLevelSetting) {
+        totalSettings.classList.add("danger");
+        settingsBillAddBtnElem.disabled = !settingsBillAddBtnElem.disabled;
+    
+    }
+
+    else if (totalCost >= warningLevelSetting) {
+        totalSettings.classList.add("warning");
+
+    }
+
+   
+
+
+}
+
+updateSettingsBtn.addEventListener('click', updateBillSettings);
+settingsBillAddBtnElem.addEventListener('click', settingBillTotal);
