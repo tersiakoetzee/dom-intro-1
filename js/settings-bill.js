@@ -46,7 +46,7 @@ function updateBillSettings() {
      warningLevelSetting =  Number(warningLevelSetting1.value);
      criticalLevelSetting = Number(criticalLevelSetting.value);
     
-     console.log(warningLevelSetting)
+    
     callCostTest = callCostSetting.value;
     smsCostTest = smsCostSetting.value;
 
@@ -69,13 +69,14 @@ function settingBillTotal() {
 
             }
 
-        }
+        
 
         callTotalSettings.innerHTML = callsTotals.toFixed(2);
         smsTotalSettings.innerHTML = smsTotals.toFixed(2);
         var totalCost = callsTotals + smsTotals;
         totalSettings.innerHTML = totalCost.toFixed(2);
     }
+}
 
     if (totalCost >= criticalLevelSetting) {
         totalSettings.classList.add("danger");
