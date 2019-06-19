@@ -42,78 +42,78 @@ var smsCostTest = 0;
 var criticalLevelSetting = 0;
 var warningLevelSetting = 0;
 
-function updateBillSettings() {
-     warningLevelSetting =  warningLevelSetting1.value;
-     criticalLevelSetting = criticalLevelSetting1.value;
-    callCostTest = callCostSetting.value;
-    smsCostTest = smsCostSetting.value;
+var FactorySettingsBill1 = FactorySettingsBill();
 
-    if(totalCost >= criticalLevelSetting){
+function updateBillSettings() {
+
+
+    var warningLevelVal = Number(warningLevelSetting1.value);
+    var criticalLevelVal = Number(criticalLevelSetting1.value);
+
+    if (FactorySettingsBill1.getTotals() >= criticalLevelVal) {
+        totalSettings.classList.remove("warning")
         totalSettings.classList.add("danger")
         settingsBillAddBtnElem.disabled = true;
     }
-    if(totalCost >= warningLevelSetting){
-        totalSettings.classList.add("warning")
-    }
-    if(totalCost < criticalLevelSetting){
+    else if (FactorySettingsBill1.getTotals() >= warningLevelVal) {
         totalSettings.classList.remove("danger")
         totalSettings.classList.add("warning")
-        settingsBillAddBtnElem.disabled = false;
     }
-    if(totalCost < warningLevelSetting){
+    else if (FactorySettingsBill1.getTotals() < warningLevelVal) {
         totalSettings.classList.remove("warning")
         totalSettings.classList.remove("danger")
     }
-    
-    
 
+    if (FactorySettingsBill1.getTotals() < criticalLevelVal) {
+        settingsBillAddBtnElem.disabled = false;
+    }
 }
 
 function settingBillTotal() {
 
-    callCostTest = callCostSetting.value;
-    smsCostTest = smsCostSetting.value;
+    callCostTest = Number(callCostSetting.value);
+    smsCostTest = Number(smsCostSetting.value);
 
     for (var i = 0; i < myRadio.length; i++) {
         var elem = myRadio[i];
         if (elem.checked == true) {
             if (elem.value === "call") {
-                callsTotals += Number(callCostTest)
+                FactorySettingsBill1.setCallTotal(callCostTest)
             } else if (elem.value === "sms") {
-                smsTotals += Number(smsCostTest)
-
-
+                FactorySettingsBill1.setSmsTotal(smsCostTest)
             }
-
         }
 
-        callTotalSettings.innerHTML = callsTotals.toFixed(2);
-        smsTotalSettings.innerHTML = smsTotals.toFixed(2);
-        totalCost = callsTotals + smsTotals;
-        totalSettings.innerHTML = totalCost.toFixed(2);
+        callTotalSettings.innerHTML = FactorySettingsBill1.getCallTotal()
+        smsTotalSettings.innerHTML = FactorySettingsBill1.getSmsTotal()
+        totalCost = FactorySettingsBill1.setTotal()
+        totalSettings.innerHTML = FactorySettingsBill1.getTotals()
     }
-   
-    if(totalCost >= criticalLevelSetting){
+
+    var warningLevelVal = Number(warningLevelSetting1.value);
+    var criticalLevelVal = Number(criticalLevelSetting1.value);
+
+
+    FactorySettingsBill1.updateSettings(criticalLevelVal, warningLevelVal)
+
+
+    if (FactorySettingsBill1.getTotals() >= criticalLevelVal) {
+        totalSettings.classList.remove("warning")
         totalSettings.classList.add("danger")
         settingsBillAddBtnElem.disabled = true;
     }
-    if(totalCost >= warningLevelSetting){
-        totalSettings.classList.add("warning")
-    }
-    if(totalCost < criticalLevelSetting){
+    else if (FactorySettingsBill1.getTotals() >= warningLevelVal) {
         totalSettings.classList.remove("danger")
         totalSettings.classList.add("warning")
-        settingsBillAddBtnElem.disabled = false;
     }
-    if(totalCost < warningLevelSetting){
+    else if (FactorySettingsBill1.getTotals() < warningLevelVal) {
         totalSettings.classList.remove("warning")
         totalSettings.classList.remove("danger")
     }
-    
 
-   
-
-
+    if (FactorySettingsBill1.getTotals() <= criticalLevelVal) {
+        settingsBillAddBtnElem.disabled = false;
+    }
 }
 
 updateSettingsBtn.addEventListener('click', updateBillSettings);
